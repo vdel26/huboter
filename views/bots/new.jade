@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+  form(method="POST", action="/bots")
+    input(type="text", name="name", placeholder="bot name")
+    input(type="text", name="adapter", placeholder="adapter")
+    input(type="submit", value="create")

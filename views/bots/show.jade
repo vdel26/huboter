@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  p Botname: #{bot.name}
+  p Adapter: #{bot.adapter}
+
+  a(href="/bots/#{bot.id}/edit") Edit info
+
+  form(method="POST", action="/bots/#{bot.id}")
+    input(type="hidden", name="_method", value="DELETE")
+    input(type="submit", value="delete")

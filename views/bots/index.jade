@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1 All the Bots
+  a(href="/bots/new") Create new bot
+
+  ul
+    each bot in bots
+      li
+        a(href="/bots/#{bot.id}")= bot.name

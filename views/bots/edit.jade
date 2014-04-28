@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  form(method="POST", action="/bots/#{bot.id}")
+    input(type="hidden", name="_method", value="PUT")
+    label(for="name") Bot name:
+    input(type="text", name="name", value="#{bot.name}")
+    input(type="submit", value="save")
