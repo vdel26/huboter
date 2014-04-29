@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+
+  h2 Enter your Slack credentials
+
+  form(method="POST")
+    p
+      label(for="slack_token") HUBOT_SLACK_TOKEN
+      input(type="text", name="slack_token")
+    p
+      label(for="slack_team") HUBOT_SLACK_TEAM
+      input(type="text", name="slack_team")
+    p
+      label(for="slack_botname") HUBOT_SLACK_BOTNAME
+      input(type="text", name="slack_botname")
+    p
+      input(type="submit", value="Save")

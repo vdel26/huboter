@@ -3,8 +3,9 @@ var Schema = mongoose.Schema;
 
 // create schema
 var UserSchema = new Schema({
-  name: { type: String, default: ''}
+  name: { type: String, default: ''},
+  createdAt: {type: Date, default: Date.now}
 });
 
 // register model User
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

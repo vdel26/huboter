@@ -1,5 +1,5 @@
-var express = require('express'),
-    Bot     = require('../lib/hubot');
+var express    = require('express'),
+    hubotUtils = require('../lib/hubot');
 
 var router = express.Router();
 
@@ -8,23 +8,20 @@ function index (req, res) {
   res.render('index', { title: 'Huboter' });
 }
 
-/* POST show confirmation page */
-function received (req, res) {
-  var myBot = new Bot();
-  myBot.launch();
-  res.render('received', { data: req.body });
-}
-
-/* GET check if bot is running to update 'received' page */
-function isrunning (req, res) {
-  res.json(200, {running: false});
+/* GET /testrun – test endpoint that starts a bot */
+function startbot (req, res) {
+  hubotUtils.launch(function (code, output) {
+    console.log(code);
+  });
+  res.send(200);
 }
 
 /**
  * Mapping routes to actions
  */
 router.get('/', index);
-router.post('/', received);
-router.get('/isrunning', isrunning);
+router.get('/testrun', startbot);
+// router.post('/', received);
+// router.get('/isrunning', isrunning);
 
 module.exports = router;
