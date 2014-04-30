@@ -1,12 +1,27 @@
 var mongoose   = require('mongoose'),
     hubotUtils = require('../lib/hubot'),
-    Schema = mongoose.Schema;
+    Schema     = mongoose.Schema;
 
 // create schema
 var BotSchema = new Schema({
-  name: { type: String, default: ''},         // botname
-  adapter: { type: String, default: ''},      // irc, slack, hipchat, campfire
-  createdAt: {type: Date, default: Date.now}  // creation date
+  name: {
+    // botname
+    type: String,
+    required: true,
+    trim: true
+  },
+  adapter: {
+    // irc, slack, hipchat, campfire
+    type: String,
+    required: true,
+    trim: true
+  },
+  createdAt: {
+    // creation date
+    type: Date,
+    default: Date.now
+  },
+  config: {} // different adapters require different env variables
 });
 
 

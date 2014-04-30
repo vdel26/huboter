@@ -1,0 +1,9 @@
+fieldset.config-slack
+  legend Adapter configuration
+  label(for="config[HUBOT_SLACK_TOKEN]") HUBOT_SLACK_TOKEN
+  input(type="text", name="config[HUBOT_SLACK_TOKEN]", required)
+
+  label(for="config[HUBOT_SLACK_TEAM]") HUBOT_SLACK_TEAM
+  input(type="text", name="config[HUBOT_SLACK_TEAM]", required)
+
+  input(type="hidden", name="config[HUBOT_SLACK_BOTNAME]", value=bot.name)

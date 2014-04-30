@@ -11,8 +11,16 @@ var User = mongoose.model('User');
 /* INDEX – GET /users - get all users */
 function index (req, res) {
   User.find({}, function (err, results) {
-    if (err) console.log('ERROR'); // use logger
-    res.render('users/index', { users: results });
+    if (err) return console.log('ERROR'); // use logger
+
+    res.format({
+      json: function () {
+        res.json({ users: results });
+      },
+      html: function () {
+        res.render('users/index', { users: results });
+      }
+    });
   });
 }
 

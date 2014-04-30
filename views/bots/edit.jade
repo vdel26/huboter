@@ -1,8 +1,26 @@
 extends ../layout
 
 block content
+  if error
+    p= error
+
   form(method="POST", action="/bots/#{bot.id}")
     input(type="hidden", name="_method", value="PUT")
-    label(for="name") Bot name:
-    input(type="text", name="name", value="#{bot.name}")
+
+    fieldset.info
+      legend Bot info
+      label(for="name") Bot name:
+      input(type="text", name="name", value=bot.name)
+
+      label(for="name") Adapter:
+      input(type="text", name="adapter", value=bot.adapter)
+
+    case bot.adapter
+      when 'slack'
+        include includes/_config-slack.jade
+      when 'irc'
+        include includes/_config-irc.jade
+      when 'hipchat'
+        include includes/_config-hipchat.jade
+
     input(type="submit", value="save")

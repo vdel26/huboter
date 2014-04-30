@@ -10,8 +10,17 @@ function index (req, res) {
 
 /* GET /testrun – test endpoint that starts a bot */
 function startbot (req, res) {
-  hubotUtils.launch(function (code, output) {
-    console.log(code);
+  hubotUtils.prepareEnv();
+  hubotUtils.launch(function (data) {
+    console.log(data);
+  });
+  res.send(200);
+}
+
+/* GET /stoprun – test endpoint that stops a bot */
+function stopbot (req, res) {
+  hubotUtils.stop(function (data) {
+    console.log(data);
   });
   res.send(200);
 }
@@ -21,7 +30,6 @@ function startbot (req, res) {
  */
 router.get('/', index);
 router.get('/testrun', startbot);
-// router.post('/', received);
-// router.get('/isrunning', isrunning);
+router.get('/teststop', stopbot);
 
 module.exports = router;
