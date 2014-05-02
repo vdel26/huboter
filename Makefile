@@ -14,13 +14,10 @@ server:
 debug:
 	DEBUG=huboter ./bin/www
 
-#start:
-#	@echo "starting in debug mode"
-#	ssh -i $(PRIVATEKEY) $(USER)@$(REMOTE) 'cd $(REMOTEDIR); node ./bin/www'
-
-#stop:
-#	@echo "stopping Nginx"
-#	ssh -i $(PRIVATEKEY) $(USER)@$(REMOTE) 'sudo $(ngx_bin) -c $(ngx_conf_dir)$(NGXCONF) -s stop'
+test:
+	@NODE_ENV=test ./node_modules/.bin/mocha \
+										--reporter spec \
+										--ui bdd
 
 pull:
 	rsync --update $(rsyncflags) $(USER)@$(REMOTE):$(REMOTEDIR)/ .
@@ -37,4 +34,4 @@ watch:
 	watchman watch $(shell pwd)
 	watchman -- trigger $(shell pwd) remake *.conf *.lua -- make start
 
-.PHONY: watch deploy start stop push pull sync
+.PHONY: watch deploy start stop push pull sync test
