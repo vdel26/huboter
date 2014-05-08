@@ -1,5 +1,6 @@
 var express    = require('express'),
-    hubotUtils = require('../lib/hubot');
+    hubotUtils = require('../lib/hubot'),
+    debug    = require('debug')('route:index');
 
 var router = express.Router();
 

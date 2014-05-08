@@ -12,7 +12,7 @@ server:
 	./bin/www
 
 debug:
-	DEBUG=huboter ./bin/www
+	DEBUG=huboter:*,route:*,model:*,lib:* ./bin/www
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \

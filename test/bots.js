@@ -36,6 +36,7 @@ describe('bots routes', function () {
   it('should create a new bot', function (done) {
     request(app)
       .post('/bots')
+      .set('Accept', 'application/json')
       .send({name: 'testbot', adapter: 'testadapter'})
       .end(function (err, res) {
         if (err) throw err;

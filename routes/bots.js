@@ -1,6 +1,7 @@
 var express  = require('express'),
     mongoose = require('mongoose'),
-    extend   = require('underscore').extend;
+    extend   = require('underscore').extend,
+    debug    = require('debug')('route:bots');
 
 /* routes with basePath: /bots */
 var bots = express.Router();
@@ -49,12 +50,24 @@ function newBot (req, res) {
 }
 
 
-/* CREATE – POST /bots/new - create a bot */
+/* CREATE – POST /bots - create a bot */
 function create (req, res) {
-  Bot.create({ name: req.body.name, adapter: req.body.adapter }, function (err, newbot) {
-    if (!err) return res.redirect('/bots');
+  var bot = new Bot({ name: req.body.name, adapter: req.body.adapter });
 
-    res.render('bots/new', { error: err.message });
+  bot.createAndDeploy(function (err, newbot) {
+    if (!err && newbot) debug('created bot with name %s', newbot.name);
+
+    res.format({
+      json: function () {
+        if (!err) return res.send(200);
+        res.send(400, { error: err.message });
+      },
+      html: function () {
+        if (!err) return res.redirect('/bots');
+        res.render('bots/new', { error: err.message });
+      }
+    });
+
   });
 }
 

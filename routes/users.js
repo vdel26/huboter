@@ -1,5 +1,7 @@
 var express  = require('express'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    debug    = require('debug')('route:users');
+
 
 /* routes with basePath /users */
 var users = express.Router();

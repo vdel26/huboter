@@ -1,6 +1,7 @@
 var mongoose   = require('mongoose'),
     hubotUtils = require('../lib/hubot'),
-    Schema     = mongoose.Schema;
+    Schema     = mongoose.Schema,
+    debug      = require('debug')('model:bot');
 
 // create schema
 var BotSchema = new Schema({
@@ -14,7 +15,8 @@ var BotSchema = new Schema({
     // irc, slack, hipchat, campfire
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    enum: ['irc', 'slack', 'hipchat']
   },
   createdAt: {
     // creation date
@@ -31,19 +33,29 @@ var BotSchema = new Schema({
 
 // static methods
 BotSchema.statics = {
-  createBot: function (cb) {
-    // hubotUtils.create();
-  },
-  launchBot: function (cb) {
-    // hubotUtils.launchBot();
-  },
-  terminateBot: function (cb) {
 
-  }
 };
 
 // instance methods
 BotSchema.methods = {
+
+  /**
+   * Deploy bot and save it
+   * @param  {Object}   bot - bot document
+   * @param  {Function} cb  – callback function
+   */
+  createAndDeploy: function (cb) {
+    var self = this;
+    this.validate(function (err) {
+      if (err) return cb(err);
+
+      hubotUtils.create(self.name, function (data) {
+        if (data.code !== 0) return cb(new Error('Bot creation failed'));
+        debug('deployed bot');
+        self.save(cb);
+      });
+    });
+  }
 
 };
 
