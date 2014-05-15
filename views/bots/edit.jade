@@ -13,7 +13,10 @@ block content
       input(type="text", name="name", value=bot.name)
 
       label(for="name") Adapter:
-      input(type="text", name="adapter", value=bot.adapter)
+      input(type="text", name="adapter", value=bot.adapter, disabled)
+
+      label(for="name") PORT:
+      input(type="text", name="config[PORT]", value=bot.config.PORT, disabled)
 
     case bot.adapter
       when 'slack'

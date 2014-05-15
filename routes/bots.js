@@ -52,7 +52,11 @@ function newBot (req, res) {
 
 /* CREATE – POST /bots - create a bot */
 function create (req, res) {
-  var bot = new Bot({ name: req.body.name, adapter: req.body.adapter });
+  var bot = new Bot({
+    name: req.body.name,
+    adapter: req.body.adapter,
+    config: req.body.config
+  });
 
   bot.createAndDeploy(function (err, newbot) {
     if (!err && newbot) debug('created bot with name %s', newbot.name);

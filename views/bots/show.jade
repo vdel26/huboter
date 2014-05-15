@@ -3,6 +3,7 @@ extends ../layout
 block content
   p Botname: #{bot.name}
   p Adapter: #{bot.adapter}
+  p PORT: #{bot.config.PORT}
 
   a(href="/bots/#{bot.id}/edit") Edit info
 

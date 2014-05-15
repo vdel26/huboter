@@ -7,6 +7,7 @@
     "test": "make test"
   },
   "dependencies": {
+    "async": "^0.8.0",
     "body-parser": "~1.0.0",
     "cookie-parser": "~1.0.1",
     "csurf": "^1.1.0",
@@ -16,12 +17,12 @@
     "method-override": "^1.0.0",
     "mongoose": "^3.8.8",
     "morgan": "~1.0.0",
+    "portfinder": "^0.2.1",
     "shelljs": "^0.2.6",
     "static-favicon": "~1.0.0",
     "underscore": "^1.6.0"
   },
   "devDependencies": {
-    "coffee-script": "^1.7.1",
     "mocha": "^1.18.2",
     "supertest": "^0.12.0"
   }

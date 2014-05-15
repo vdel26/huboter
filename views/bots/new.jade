@@ -4,7 +4,17 @@ block content
   if error
     p= error
 
-  form(method="POST", action="/bots")
-    input(type="text", name="name", placeholder="bot name")
-    input(type="text", name="adapter", placeholder="adapter")
+  form(method="POST", action="/bots", class="bots-new")
+    fieldset.info
+      input(type="text", name="name", placeholder="bot name", required)
+      select(name="adapter", required)
+        option(value="", disabled) Select your adapter
+        option(value="slack") Slack
+        option(value="irc") IRC
+        option(value="hipchat") Hipchat
+
+    include includes/_config-slack.jade
+    include includes/_config-irc.jade
+    include includes/_config-hipchat.jade
+
     input(type="submit", value="create")
