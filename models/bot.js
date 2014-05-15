@@ -97,9 +97,10 @@ BotSchema.methods = {
    * Stop running the bot
    */
   stop: function (cb) {
-    hubotUtils.stop(this.id, function (data) {
+    hubotUtils.stop(this.botPath, function (data) {
       if (data.code !== 0) return cb(new Error('Error stopping bot'));
       debug('stopping bot');
+      return cb();
     });
   },
 
@@ -125,8 +126,14 @@ BotSchema.methods = {
     });
   },
 
-  removeAndDestroy: function (cb) {
-    // pending
+  /**
+   * Destroy bot deleting it from the system and DB
+   * @param  {Function} cb – callback(err, destroyedBot)
+   */
+  destroy: function (cb) {
+    hubotUtils.destroy(this.botPath, function (data) {
+      this.remove(cb);
+    }.bind(this));
   }
 
 };

@@ -78,10 +78,16 @@ function create (req, res) {
 
 /*  DESTROY – DELETE /bots/:id - delete a bot */
 function destroy (req, res) {
-  Bot.remove({ _id: req.params.id }, function (err) {
-    if (err) return res.send('500', err);
-    res.redirect('/bots');
+  Bot.findOne({ _id: req.params.id }, function (err, result) {
+    result.destroy(function (err, destroyedBot) {
+      if (err) return res.send('500', err);
+      res.redirect('/bots');
+    });
   });
+  // Bot.remove({ _id: req.params.id }, function (err) {
+  //   if (err) return res.send('500', err);
+  //   res.redirect('/bots');
+  // });
 }
 
 
