@@ -4,4 +4,5 @@ block content
   h1 All the Users
   ul
     each user in users
-      li= user.name
+      li
+        a(href="/#{user.id}/bots")= user.name

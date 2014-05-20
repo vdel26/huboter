@@ -4,7 +4,7 @@ block content
   if error
     p= error
 
-  form(method="POST", action="/bots", class="bots-new")
+  form(method="POST", action="/#{userid}/bots", class="bots-new")
     fieldset.info
       input(type="text", name="name", placeholder="bot name", required)
       select(name="adapter", required)

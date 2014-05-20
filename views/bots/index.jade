@@ -1,10 +1,16 @@
 extends ../layout
 
 block content
-  h1 All the Bots
-  a(href="/bots/new") Create new bot
+  if error
+    p= error
 
-  ul
-    each bot in bots
-      li
-        a(href="/bots/#{bot.id}")= bot.name
+  h1 All my Bots
+  a(href="/#{userid}/bots/new") Create new bot
+
+  if bots && bots.length > 0
+    ul
+      each bot in bots
+        li
+          a(href="/#{userid}/bots/#{bot.id}")= bot.name
+  else
+    p You don't have any bot yet

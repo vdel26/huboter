@@ -12,6 +12,11 @@ var BotSchema = new Schema({
     required: true,
     trim: true
   },
+  owner: {
+    type: Schema.ObjectId ,
+    ref: 'User',
+    required: true
+  },
   adapter: {
     // irc, slack, hipchat, campfire
     type: String,

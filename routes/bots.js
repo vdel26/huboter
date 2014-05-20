@@ -12,14 +12,16 @@ var Bot = mongoose.model('Bot');
 
 /* INDEX – GET /bots - get all bots */
 function index (req, res) {
-  Bot.find({}, function (err, results) {
+  var userid = req.userid;
+
+  Bot.find({ owner: userid }, function (err, results) {
 
     res.format({
       json: function () {
-        res.json({ bots: results });
+        res.json({ bots: results, error: err ? err.message : "" });
       },
       html: function () {
-        res.render('bots/index', { bots: results });
+        res.render('bots/index', { bots: results, error: err ? err.message : "" });
       }
     });
 
@@ -52,10 +54,13 @@ function newBot (req, res) {
 
 /* CREATE – POST /bots - create a bot */
 function create (req, res) {
+  var userid = req.userid;
+
   var bot = new Bot({
     name: req.body.name,
     adapter: req.body.adapter,
-    config: req.body.config
+    config: req.body.config,
+    owner: userid
   });
 
   bot.createAndDeploy(function (err, newbot) {
@@ -67,7 +72,7 @@ function create (req, res) {
         res.send(400, { error: err.message });
       },
       html: function () {
-        if (!err) return res.redirect('/bots');
+        if (!err) return res.redirect('/'+ userid + '/bots');
         res.render('bots/new', { error: err.message });
       }
     });
@@ -78,16 +83,14 @@ function create (req, res) {
 
 /*  DESTROY – DELETE /bots/:id - delete a bot */
 function destroy (req, res) {
+  var userid = req.userid;
+
   Bot.findOne({ _id: req.params.id }, function (err, result) {
     result.destroy(function (err, destroyedBot) {
       if (err) return res.send('500', err);
-      res.redirect('/bots');
+      res.redirect('/'+ userid + '/bots');
     });
   });
-  // Bot.remove({ _id: req.params.id }, function (err) {
-  //   if (err) return res.send('500', err);
-  //   res.redirect('/bots');
-  // });
 }
 
 
@@ -102,11 +105,13 @@ function edit (req, res) {
 
 /*  UPDATE – PUT /bots/:id - update info for a bot */
 function update (req, res) {
+  var userid = req.userid;
+
   Bot.findOne({_id: req.params.id}, function (err, result) {
     var bot = extend(result, req.body);
 
     bot.save(function (err) {
-      if (!err) return res.redirect('/bots');
+      if (!err) return res.redirect('/'+ userid + '/bots');
       res.render('bots/edit', { bot: result, error: err.message });
     });
 

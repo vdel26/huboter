@@ -4,7 +4,7 @@ block content
   if error
     p= error
 
-  form(method="POST", action="/bots/#{bot.id}")
+  form(method="POST", action="/#{userid}/bots/#{bot.id}")
     input(type="hidden", name="_method", value="PUT")
 
     fieldset.info
