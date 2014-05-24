@@ -1,6 +1,5 @@
 var mongoose   = require('mongoose'),
     hubotUtils = require('../lib/hubot'),
-    async      = require('async'),
     Schema     = mongoose.Schema,
     debug      = require('debug')('model:bot');
 
