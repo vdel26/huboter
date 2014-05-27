@@ -10,7 +10,7 @@ var assert   = require('assert'),
  * INTEGRATION TESTS FOR routes/bots
  */
 
-describe('bots routes', function () {
+describe('Bots API - integration tests', function () {
 
   var userId, testBot;
 
