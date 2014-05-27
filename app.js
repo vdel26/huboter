@@ -16,32 +16,17 @@ var debug = require('debug')('huboter');
 var env = process.env.NODE_ENV || 'development'
 var config = require('./config/config')[env];
 
-/**
- * DB CONNECTION
- */
-// connect to mongodb
-var connect = function () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } }
-  mongoose.connect(config.db, options);
-  debug('db connected ok');
-}
-connect();
 
-// error handler
-mongoose.connection.on('error', function (err) {
-  console.log(err);
-  debug('db connection error');
-});
+// Connect database
+require('./config/db')(mongoose, config);
 
-// reconnect when closed
-mongoose.connection.on('disconnected', function () {
-  connect();
-});
 
-// Bootstrap models
-fs.readdirSync(__dirname + '/models').forEach(function (file) {
-  if (~file.indexOf('.js')) require(__dirname + '/models/' + file);
-});
+// Bootstrap models and inject dependencies
+var hubotUtils = require('./lib/hubot');
+var UserSchema = require('./models/user')();
+var BotSchema = require('./models/bot')(hubotUtils);
+mongoose.model('User', UserSchema);
+mongoose.model('Bot', BotSchema);
 
 
 /**
