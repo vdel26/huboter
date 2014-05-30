@@ -1,0 +1,11 @@
+extends ../layout
+
+form(action="/login", method="post")
+  fieldset
+    label Username:
+    input(type="text", name="username")
+
+    label Password:
+    input(type="password", name="password")
+
+    input(type="submit", value="Log in")

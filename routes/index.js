@@ -27,9 +27,24 @@ function stopbot (req, res) {
 }
 
 /**
+ * Auth routes
+ */
+
+function login (req, res) {
+  res.render('login');
+}
+
+function signup (req, res) {
+  res.render('signup');
+}
+
+
+/**
  * Mapping routes to actions
  */
 router.get('/', index);
+router.get('/login', login);
+router.get('/signup', signup);
 router.get('/testrun', startbot);
 router.get('/teststop', stopbot);
 
