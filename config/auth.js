@@ -1,6 +1,6 @@
-var passport      = require('passport'),
-    LocalStrategy = require('passport-local'),
-    mongoose      = require('mongoose');
+var LocalStrategy = require('passport-local'),
+    mongoose      = require('mongoose'),
+    debug         = require('debug')('config:auth');
 
 // user model
 var User = mongoose.model('User');
@@ -28,15 +28,18 @@ module.exports = function (passport) {
       passwordField: 'password'
     },
     function(username, password, done) {
-      User.findOne({ username: username }, function (err, user) {
+      User.findOne({ name: username }, function (err, user) {
         if (err) { return done(err); }
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (!user.validPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
+
+        user.comparePassword(password, function (err, isMatch) {
+          debug('valid user? ' + isMatch);
+          if (!isMatch) return done(null, false, { message: 'Incorrect password.' });
+          else return done(null, user);
+        });
+
       });
     }
   ));

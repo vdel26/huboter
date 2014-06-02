@@ -1,6 +1,7 @@
 var express    = require('express'),
     hubotUtils = require('../lib/hubot'),
-    debug    = require('debug')('route:index');
+    passport   = require('passport'),
+    debug      = require('debug')('route:index');
 
 var router = express.Router();
 
@@ -44,6 +45,9 @@ function signup (req, res) {
  */
 router.get('/', index);
 router.get('/login', login);
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login'}));
 router.get('/signup', signup);
 router.get('/testrun', startbot);
 router.get('/teststop', stopbot);

@@ -8,9 +8,11 @@ var express        = require('express'),
     favicon        = require('static-favicon'),
     logger         = require('morgan'),
     cookieParser   = require('cookie-parser'),
+    session        = require('express-session'),
     bodyParser     = require('body-parser'),
     methodOverride = require('method-override'),
-    mongoose       = require('mongoose');
+    mongoose       = require('mongoose'),
+    passport       = require('passport');
 
 var debug = require('debug')('huboter');
 var env = process.env.NODE_ENV || 'development'
@@ -47,7 +49,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 // app.use(csrf());
 app.use(methodOverride());
-app.use(cookieParser());
+app.use(cookieParser('HU80T3Rsecrettoken'));
+app.use(session({
+  secret: 'HU80T3Rsecrettoken'
+}));
+
+// passport authentication
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/auth')(passport);
+
+// static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
 
