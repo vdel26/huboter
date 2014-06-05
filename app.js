@@ -47,20 +47,25 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-// app.use(csrf());
+//// app.use(csrf());
 app.use(methodOverride());
 app.use(cookieParser('HU80T3Rsecrettoken'));
 app.use(session({
   secret: 'HU80T3Rsecrettoken'
 }));
 
-// passport authentication
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/auth')(passport);
-
 // static assets
 app.use(express.static(path.join(__dirname, 'public')));
+
+// passportjs authentication using
+// session and local strategy
+var auth = require('./config/auth');
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(auth.serializeUser);
+passport.deserializeUser(auth.deserializeUser);
+passport.use(auth.passportStrategy);
+
 
 
 /**

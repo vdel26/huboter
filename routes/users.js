@@ -10,10 +10,12 @@ var users = express.Router();
 var User = mongoose.model('User');
 
 
-/* INDEX – GET /users - get all users */
+/**
+ * INDEX – GET /user - get all users
+ */
 function index (req, res) {
   User.find({}).populate('bots').exec(function (err, results) {
-    if (err) return console.log('ERROR'); // use logger
+    if (err) return debug('ERROR');
 
     res.format({
       json: function () {
@@ -26,10 +28,30 @@ function index (req, res) {
   });
 }
 
+/**
+ * SHOW – GET /user - see one user
+ */
+function show (req, res) {
+  User.findOne({ _id: req.user._id }, function (err, user) {
+    if (err) return debug('ERROR');
+
+    res.format({
+      json: function () {
+        res.json({ user: user });
+      },
+      html: function () {
+        res.render('users/show', { user: user });
+      }
+    });
+  });
+}
+
+
 
 /**
  * Mapping routes to actions
  */
-users.get('/', index);
+users.get('/', show);
+users.get('/all', index);
 
 module.exports = users;
