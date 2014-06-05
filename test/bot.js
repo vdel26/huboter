@@ -18,7 +18,7 @@ describe('Bot Model', function () {
   var userId, testBot;
 
   before(function (done) {
-    User.create({name: 'Tobi'}, function (err, result) {
+    User.create({name: 'Tobi', password: '123456'}, function (err, result) {
       userId = result.id;
       testBot = {name: 'testbot', adapter: 'slack', owner: userId, config: {HUBOT_SLACK_TOKEN: 'token'}};
       done();
