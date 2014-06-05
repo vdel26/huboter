@@ -17,7 +17,8 @@ debug:
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 										--reporter spec \
-										--ui bdd
+										--ui bdd \
+										test/unit/*.js
 
 pull:
 	rsync --update $(rsyncflags) $(USER)@$(REMOTE):$(REMOTEDIR)/ .

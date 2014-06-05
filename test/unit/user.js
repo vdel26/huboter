@@ -1,13 +1,11 @@
-var assert   = require('assert'),
-    express  = require('express'),
-    mongoose = require('mongoose'),
-    _        = require('underscore');
+var assert    = require('assert'),
+    mongoose  = require('mongoose'),
+    _         = require('underscore'),
+    testUtils = require('../utils');
 
-var config = require('../config/config').test;
-require('../config/db')(mongoose, config);
 
-var UserSchema = require('../models/user')();
-var User = mongoose.model('User', UserSchema);
+testUtils.initModels();
+var User = mongoose.model('User');
 
 
 describe('User Model', function () {

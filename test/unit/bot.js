@@ -1,16 +1,14 @@
-var assert   = require('assert'),
-    express  = require('express'),
-    mongoose = require('mongoose'),
-    _        = require('underscore');
+var assert    = require('assert'),
+    mongoose  = require('mongoose'),
+    _         = require('underscore'),
+    testUtils = require('../utils');
 
-var config = require('../config/config').test;
-require('../config/db')(mongoose, config);
 
-var hubotUtilsMock = require('./utils').hubotUtilsMock;
-var BotSchema = require('../models/bot')(hubotUtilsMock);
-var UserSchema = require('../models/user')();
-var User = mongoose.model('User', UserSchema);
-var Bot = mongoose.model('Bot', BotSchema);
+var hubotUtilsMock = testUtils.hubotUtilsMock;
+
+testUtils.initModels();
+var User = mongoose.model('User');
+var Bot = mongoose.model('Bot');
 
 
 describe('Bot Model', function () {

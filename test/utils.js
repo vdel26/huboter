@@ -1,8 +1,16 @@
+
+var mongoose   = require('mongoose'),
+    config     = require('../config/config').test;
+
+
 /**
  * mock hubotUtils
  */
 
-exports.hubotUtilsMock = {
+var hubotUtilsMock = {
+
+  // keeps counters for number of times each
+  // hubotUtils method has been called
   called: {},
 
   findPort: function (cb) {
@@ -32,4 +40,19 @@ exports.hubotUtilsMock = {
         pid: 0
       });
   }
+};
+exports.hubotUtilsMock = hubotUtilsMock;
+
+
+/**
+ * Initialize models for tests
+ */
+
+var UserSchema = require('../models/user')();
+var BotSchema  = require('../models/bot')(hubotUtilsMock);
+require('../config/db')(mongoose, config);
+
+exports.initModels = function () {
+  mongoose.model('User', UserSchema)
+  mongoose.model('Bot', BotSchema)
 };
