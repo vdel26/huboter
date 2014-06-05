@@ -12,23 +12,27 @@ var router = express.Router();
 var User = mongoose.model('User');
 
 
-/* GET slack config details page */
 function index (req, res) {
-  debug('req.user:' + req.user);
-  res.render('index', { title: 'Huboter' });
+  res.redirect('/user');
 }
+
 
 /**
  * Auth routes
  */
 
 function login (req, res) {
-  if (req.user) res.redirect('/');
+  if (req.user) res.redirect('/user');
   else res.render('login');
 }
 
+function logout (req, res){
+  req.logout();
+  res.redirect('/login');
+}
+
 function signup (req, res) {
-  if (req.user) res.redirect('/');
+  if (req.user) res.redirect('/user');
   else res.render('signup');
 }
 
@@ -46,7 +50,7 @@ function create (req, res, next) {
     }
     req.login(user, function(err) {
       if (err) { return next(err); }
-      return res.redirect('/');
+      return res.redirect('/user');
     });
   });
 }
@@ -58,8 +62,9 @@ function create (req, res, next) {
  */
 router.get('/', index);
 router.get('/login', login);
+router.get('/logout', logout);
 router.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
+  passport.authenticate('local', { successRedirect: '/user',
                                    failureRedirect: '/login'}));
 router.get('/signup', signup);
 router.post('/signup', create);

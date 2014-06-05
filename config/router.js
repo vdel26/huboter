@@ -14,7 +14,8 @@ var coreRoutes  = require('../routes/index'),
 function loadUser (req, res, next) {
   // TODO: use passport's req.user._id in routes instead of this
   // this will be removed soon
-  req.userid = res.locals.userid = req.params.userid;
+  //req.userid = res.locals.userid = req.params.userid;
+  res.locals.userid = req.user._id
   debug('routing for user %s', res.locals.userid);
   next();
 }

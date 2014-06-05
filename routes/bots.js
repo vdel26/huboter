@@ -12,7 +12,6 @@ var Bot = mongoose.model('Bot');
 
 /* INDEX – GET /bots - get all bots */
 function index (req, res) {
-  // var userid = req.userid;
   var userid = req.user._id;
 
   debug('req.userid: ' + req.userid);
@@ -58,7 +57,6 @@ function newBot (req, res) {
 
 /* CREATE – POST /bots - create a bot */
 function create (req, res) {
-  // var userid = req.userid;
   var userid = req.user._id;
 
   var bot = new Bot({
@@ -88,7 +86,6 @@ function create (req, res) {
 
 /*  DESTROY – DELETE /bots/:id - delete a bot */
 function destroy (req, res) {
-  // var userid = req.userid;
   var userid = req.user._id;
 
   Bot.findOne({ _id: req.params.id }, function (err, result) {
@@ -111,7 +108,6 @@ function edit (req, res) {
 
 /*  UPDATE – PUT /bots/:id - update info for a bot */
 function update (req, res) {
-  // var userid = req.userid;
   var userid = req.user._id;
 
   Bot.findOne({_id: req.params.id}, function (err, result) {

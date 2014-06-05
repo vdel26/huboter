@@ -53,8 +53,12 @@ exports.passportStrategy = new LocalStrategy({
  * you want to require login
  */
 exports.requiresLogin = function (req, res, next) {
-  if (req.isAuthenticated()) next();
+  if (req.isAuthenticated()) {
+    res.locals.loggedIn = false;
+    next();
+  }
   else {
+    res.locals.loggedIn = true;
     debug('Redirecting because user is not logged in');
     res.redirect('/login');
   }
