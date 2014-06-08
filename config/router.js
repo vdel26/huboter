@@ -14,9 +14,15 @@ var coreRoutes  = require('../routes/index'),
 function loadUser (req, res, next) {
   // TODO: use passport's req.user._id in routes instead of this
   // this will be removed soon
-  //req.userid = res.locals.userid = req.params.userid;
   res.locals.userid = req.user._id
   debug('routing for user %s', res.locals.userid);
+  next();
+}
+
+function hasAuthorization (req, res, next) {
+  if (req.user.id !== req.params.userid) {
+    return res.send(401, 'User is not authorized');
+  }
   next();
 }
 
@@ -28,7 +34,7 @@ module.exports = function (app) {
   // authentication routes
   app.use('/', coreRoutes);
 
-  // require login for any other route below this
+  // routes below this point require being logged in
   app.use(auth.requiresLogin);
 
   // users
@@ -36,5 +42,6 @@ module.exports = function (app) {
 
   // bots
   app.param('userid', loadUser);
+  app.param('userid', hasAuthorization);
   app.use('/:userid/bots', botsRoutes);
 }

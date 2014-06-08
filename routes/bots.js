@@ -14,7 +14,6 @@ var Bot = mongoose.model('Bot');
 function index (req, res) {
   var userid = req.user._id;
 
-  debug('req.userid: ' + req.userid);
   debug('req.user:' + req.user);
 
   Bot.find({ owner: userid }, function (err, results) {
