@@ -1,0 +1,4 @@
+h2 {{ currentBot.name }}
+ul
+  li Birth date: {{ currentBot.createdAt }}
+  li(ng-repeat="(key, item) in currentBot.config") {{ key }}: {{ item }}

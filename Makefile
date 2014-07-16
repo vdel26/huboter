@@ -11,8 +11,8 @@ all:
 server:
 	./bin/www
 
-debug:
-	DEBUG=huboter:*,route:*,model:*,lib:*,config:* ./bin/www
+dev-server:
+	DEBUG=huboter:*,route:*,model:*,lib:*,config:* ./node_modules/.bin/nodemon ./bin/www
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \

@@ -1,0 +1,9 @@
+form(ng-submit="login()")
+  fieldset
+    label Username:
+    input(type="text", name="username", ng-model="username", required)
+
+    label Password:
+    input(type="password", name="password", ng-model="password", required)
+
+    input(type="submit", value="LOG IN")

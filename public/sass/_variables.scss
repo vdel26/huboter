@@ -1,0 +1,16 @@
+// colors
+$primary-700: #303F9F;
+$primary-500: #3F51B5;
+
+// appbar
+$increment: 64px;
+$appbar-height: $increment*2 + 24px;
+$appbar-background-color: $primary-500;
+$appbar-frame-color: $primary-700;
+$appbar-margin-left: 80px;
+
+
+
+// override bootstrap variables
+$brand-primary: white;
+$body-bg: #EEEEEE;

@@ -1,0 +1,46 @@
+// Override Bootstrap variables
+@import "variables";
+// Bootstrap v3.2.0
+@import "bootstrap";
+
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.bots-new .config {
+  /**
+   * Hide all config templates until one is selected
+   */
+  display: none;
+}
+
+.is-displayed {
+  display: initial !important;
+}
+
+
+/**
+ * App bar (navigation-header.jade)
+ */
+header {
+  &:before {
+    content: '';
+    display:block;
+    height: 24px;
+    background-color: $appbar-frame-color;
+  }
+}
+
+.TopBar-content {
+  @extend .navbar;
+  @extend .navbar-default;
+  @extend .navbar-static-top;
+  @extend .container;
+
+  background-color: $appbar-background-color;
+}
+.MainMenu {
+}
+.SecondaryMenu {
+}

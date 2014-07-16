@@ -60,6 +60,8 @@ exports.requiresLogin = function (req, res, next) {
   else {
     res.locals.loggedIn = true;
     debug('Redirecting because user is not logged in');
-    res.redirect('/login');
+    // Angular
+    // res.redirect('/login');
+    res.send(401, 'Not authorized')
   }
 };

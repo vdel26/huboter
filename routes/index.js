@@ -28,7 +28,7 @@ function login (req, res) {
 
 function logout (req, res){
   req.logout();
-  res.redirect('/login');
+  res.redirect('/#/login');
 }
 
 function signup (req, res) {
@@ -55,18 +55,42 @@ function create (req, res, next) {
   });
 }
 
+function clientApp (req, res) {
+  res.render('index-angular');
+}
+
+function partials (req, res) {
+  res.render('partials/' + req.params.name);
+}
+
+function loggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    res.send({ name: req.user.name, id: req.user._id });
+  }
+  else res.send(401, 'Not authorized');
+}
+
 
 
 /**
  * Mapping routes to actions
  */
-router.get('/', index);
+
+
+// router.get('/', index);
 router.get('/login', login);
 router.get('/logout', logout);
 router.post('/login',
-  passport.authenticate('local', { successRedirect: '/user',
+  passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login'}));
+router.get('/loggedin', loggedIn);
 router.get('/signup', signup);
 router.post('/signup', create);
+
+// Angular: main app
+router.get('/', clientApp);
+// Angular: partials
+router.get('/partials/:name', partials);
+
 
 module.exports = router;

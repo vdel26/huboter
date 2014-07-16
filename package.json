@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "debug": "nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "make test",
     "db": "mongod"
@@ -29,6 +30,8 @@
   },
   "devDependencies": {
     "mocha": "^1.18.2",
+    "node-sass": "^0.9.3",
+    "nodemon": "^1.2.1",
     "supertest": "^0.12.0"
   }
 }

@@ -12,7 +12,8 @@ var express        = require('express'),
     bodyParser     = require('body-parser'),
     methodOverride = require('method-override'),
     mongoose       = require('mongoose'),
-    passport       = require('passport');
+    passport       = require('passport'),
+    sass           = require('node-sass');
 
 var debug = require('debug')('huboter');
 var env = process.env.NODE_ENV || 'development'
@@ -55,6 +56,14 @@ app.use(session({
 }));
 
 // static assets
+app.use(sass.middleware({
+  src: __dirname + '/public/sass',
+  dest: __dirname + '/public/stylesheets',
+  prefix: '/stylesheets',
+  debug: true,
+  includePaths: ['public/vendor/bootstrap-sass/stylesheets/'],
+  outputStyle: 'compressed'
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passportjs authentication using

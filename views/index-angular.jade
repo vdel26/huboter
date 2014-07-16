@@ -1,0 +1,25 @@
+doctype html
+html(ng-app="hubotApp")
+  head
+    meta(charset="utf8")
+    title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="/javascripts/client.js")
+
+  body(ng-controller="AppCtrl")
+    include partials/navigation-header
+
+    div.container(ui-view)
+
+    footer
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+    script(src='/vendor/angular.js')
+    script(src='/vendor/angular-ui-router.min.js')
+    script(src='/vendor/angular-resource.min.js')
+    script(src='/vendor/angular-cookies.min.js')
+    script(src='/vendor/bootstrap-sass/javascripts/bootstrap.js')
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/controllers.js')
+    script(src='/javascripts/services.js')

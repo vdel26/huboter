@@ -44,4 +44,9 @@ module.exports = function (app) {
   app.param('userid', loadUser);
   app.param('userid', hasAuthorization);
   app.use('/:userid/bots', botsRoutes);
+
+  // angular catch-all
+  app.use('*', function  (req, res) {
+    res.render('index-angular');
+  })
 }

@@ -1,0 +1,29 @@
+header(ng-hide="isLogin()")
+  nav.TopBar-content(role="navigation")
+    div.container
+      div.navbar-header
+        button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+
+        a.navbar-brand(ng-href="") Yourbot.io
+      div.navbar-collapse.collapse
+        ul.MainMenu.nav.navbar-nav
+          li
+            a(ui-sref="bots") Bot configuration
+          li
+            a Plugins
+
+        ul.SecondaryMenu.nav.navbar-nav.navbar-right
+          li.dropdown
+            a.dropdown-toggle(data-toggle="dropdown", data-target="#") {{ currentBot.name }}
+              span.caret
+            ul.dropdown-menu(role="menu")
+              li(ng-repeat="bot in bots", ng-click="setCurrentBot(bot)")
+                a {{ bot.name }}
+              li
+                a(ui-sref="newbot") NEW BOT
+          li
+            a(ui-sref="account") Account
