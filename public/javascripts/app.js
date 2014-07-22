@@ -39,12 +39,12 @@ hubotApp.config(function ($urlRouterProvider, $stateProvider, $httpProvider) {
     .state('bots', {
       url: '/bots',
       templateUrl: 'partials/bot-show',
-      controller: 'BotsCtrl',
+      controller: 'BotsListCtrl',
       resolve: { loggedin: checkLoggedin }
     })
     .state('newbot', {
       url: '/bots/new',
-      controller: 'BotsCtrl',
+      controller: 'BotsCreateCtrl',
       templateUrl: 'partials/bot-new',
       resolve: { loggedin: checkLoggedin }
     })

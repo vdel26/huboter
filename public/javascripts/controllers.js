@@ -48,18 +48,30 @@ hubotAppControllers.controller('AuthCtrl',
 
 
 /**
- * Bots controller
+ * Bots List controller
  *
  */
-hubotAppControllers.controller('BotsCtrl',
+hubotAppControllers.controller('BotsListCtrl',
   function ($rootScope, $scope, $http, Bots, Session) {
     Bots.query({ userId: Session.userId }, function (bots) {
       $rootScope.bots = bots;
       Session.setCurrentBot(bots[0]); // fix: only do this when controller first instantiated
     });
+  }
+);
 
-    // new bot
-    $scope.newbot = 'newbot';
+
+/**
+ * Bots Create controller
+ *
+ */
+hubotAppControllers.controller('BotsCreateCtrl',
+  function ($rootScope, $scope, $http, Bots, Session) {
+
+    $scope.createBot = function () {
+      var data = JSON.stringify($scope.newbot);
+      console.log('Bot info: ' + data);
+    };
   }
 );
 

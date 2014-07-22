@@ -41,6 +41,37 @@ header {
   background-color: $appbar-background-color;
 }
 .MainMenu {
+  li > a:hover {
+    background-color: $appbar-background-color;
+    box-shadow: inset 0 -2px 0 $accent-200;
+  }
 }
 .SecondaryMenu {
+  // acount and bot selector
+}
+
+
+/**
+ * Login form
+ */
+.LoginForm {
+  width: 50%;
+  @include center-block();
+  // should be full width on mobile
+}
+
+
+/**
+ * Create bot page
+ */
+.NewBotForm {
+  width: 50%;
+  @include center-block();
+}
+
+/**
+ * Bot details page
+ */
+.BotInfo {
+
 }

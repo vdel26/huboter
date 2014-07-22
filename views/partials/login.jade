@@ -1,9 +1,9 @@
-form(ng-submit="login()")
-  fieldset
+form.LoginForm(ng-submit="login()")
+  fieldset.form-group
     label Username:
-    input(type="text", name="username", ng-model="username", required)
+    input.form-control(type="text", name="username", ng-model="username", required)
 
     label Password:
-    input(type="password", name="password", ng-model="password", required)
+    input.form-control(type="password", name="password", ng-model="password", required)
 
-    input(type="submit", value="LOG IN")
+    input.form-control(type="submit", value="LOG IN")

@@ -1,1 +1,53 @@
-p New bot: {{ newbot }}
+form.NewBotForm(class="NewBotInfo", method="POST", ng-submit="createBot()", )
+  fieldset.form-group
+    legend Basic info
+
+    div.form-group
+      label(for="name") Bot name
+      input.form-control(type="text", name="name", placeholder="Bot Dylan", ng-model="newbot.name", required)
+
+    div.form-group
+      label(for="adapter") Adapter
+      select.form-control(name="adapter", ng-model="newbot.adapter", required)
+        option(value="", disabled) Select your adapter
+        option(value="slack") Slack
+        option(value="irc") IRC
+        option(value="hipchat") Hipchat
+
+
+  fieldset.form-group(ng-switch="newbot.adapter")
+
+    div(ng-switch-when="slack")
+      legend Adapter configuration
+
+      div.form-group
+        label(for="config[HUBOT_SLACK_TOKEN]") HUBOT_SLACK_TOKEN
+        input.form-control(type="text", name="config[HUBOT_SLACK_TOKEN]",placeholder="my secret token", ng-model="newbot.config.HUBOT_SLACK_TOKEN", required)
+
+      div.form-group
+        label(for="config[HUBOT_SLACK_TEAM]") HUBOT_SLACK_TEAM
+        input.form-control(type="text", name="config[HUBOT_SLACK_TEAM]", placeholder="awesome team", ng-model="newbot.config.HUBOT_SLACK_TEAM", required)
+
+    div(ng-switch-when="hipchat")
+      legend Adapter configuration
+
+      div.form-group
+        label(for="config[HUBOT_HIPCHAT_TOKEN]") HUBOT_HIPCHAT_TOKEN
+        input.form-control(type="text", name="config[HUBOT_HIPCHAT_TOKEN]", placeholder="my secret token", ng-model="newbot.config.HUBOT_HIPCHAT_TOKEN", required)
+
+      div.form-group
+        label(for="config[HUBOT_HIPCHAT_TEAM]") HUBOT_HIPCHAT_TEAM
+        input.form-control(type="text", name="config[HUBOT_HIPCHAT_TEAM]", placeholder="awesome team", ng-model="newbot.config.HUBOT_HIPCHAT_TEAM", required)
+
+    div(ng-switch-when="irc")
+      legend Adapter configuration
+
+      div.form-group
+        label(for="config[HUBOT_IRC_TOKEN]") HUBOT_IRC_TOKEN
+        input.form-control(type="text", name="config[HUBOT_IRC_TOKEN]", placeholder="my secret token", ng-model="newbot.config.HUBOT_IRC_TOKEN", required)
+
+      div.form-group
+        label(for="config[HUBOT_IRC_TEAM]") HUBOT_IRC_TEAM
+        input.form-control(type="text", name="config[HUBOT_IRC_TEAM]", placeholder="awesome team", ng-model="newbot.config.HUBOT_IRC_TEAM", required)
+
+  input.btn.btn-default(type="submit", value="create")

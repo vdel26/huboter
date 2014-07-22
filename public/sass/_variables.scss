@@ -1,6 +1,14 @@
 // colors
-$primary-700: #303F9F;
+$primary-700: #303F9F; // indigo
 $primary-500: #3F51B5;
+$accent-200: #FFAB40; // orange
+$text-primary: rgba(0,0,0, 0.87);
+$text-secondary: rgba(0,0,0, 0.54);
+$text-hints: rgba(0,0,0, 0.26); // text hints for users, e.g in text fields and labels
+
+// override bootstrap variables
+$brand-primary: white;
+$body-bg: #EEEEEE;
 
 // appbar
 $increment: 64px;
@@ -8,9 +16,3 @@ $appbar-height: $increment*2 + 24px;
 $appbar-background-color: $primary-500;
 $appbar-frame-color: $primary-700;
 $appbar-margin-left: 80px;
-
-
-
-// override bootstrap variables
-$brand-primary: white;
-$body-bg: #EEEEEE;
