@@ -49,8 +49,7 @@ hubotAppServices.factory('Session', function ($rootScope) {
  * Bots API
  */
 hubotAppServices.factory('Bots', function ($resource, Session) {
-  var botsList = [];
-  var Bots = $resource('/:userId/bots', {},
+  var Bots = $resource('/:userId/bots/:botId', {},
   {
     query: {
       method:'GET',
@@ -58,6 +57,9 @@ hubotAppServices.factory('Bots', function ($resource, Session) {
       transformResponse: function(response) {
         return JSON.parse(response).bots;
       },
+    },
+    update: {
+      method: 'PUT'
     }
   });
 

@@ -57,6 +57,25 @@ hubotAppControllers.controller('BotsListCtrl',
       $rootScope.bots = bots;
       Session.setCurrentBot(bots[0]); // fix: only do this when controller first instantiated
     });
+
+    $scope.isLocked = true;
+
+    $scope.toggleEditing = function (currentBot) {
+      if (!$scope.isLocked && !$scope.BotInfo.$pristine) {
+        Bots.update({
+          userId: Session.userId,
+          botId: Session.currentBot._id
+        }, currentBot, function (result) {
+          console.log(result);
+        });
+      }
+      $scope.isLocked = !$scope.isLocked;
+    };
+
+    $scope.deleteBot = function (currentBot) {
+      // delete bot
+      console.log('deleting bot: ' + currentBot.name)
+    };
   }
 );
 
