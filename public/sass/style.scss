@@ -87,6 +87,7 @@ header {
  */
 .BotInfo {
   @extend .form-horizontal;
+  @include center-block();
 
   &.is-Editing {
     // styles when in editing state

@@ -73,8 +73,12 @@ hubotAppControllers.controller('BotsListCtrl',
     };
 
     $scope.deleteBot = function (currentBot) {
-      // delete bot
-      console.log('deleting bot: ' + currentBot.name)
+      Bots.delete({
+        userId: Session.userId,
+        botId: Session.currentBot._id
+      }, function (result) {
+        console.log('Deletion result: ' + result);
+      });
     };
   }
 );

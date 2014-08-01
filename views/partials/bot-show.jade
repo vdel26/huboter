@@ -1,4 +1,4 @@
-form.BotInfo(name="BotInfo" method="POST", ng-submit="editBot()")
+form.BotInfo(name="BotInfo")
   div.form-group
     label.control-label(for="name") Name:
     input.form-control(type="text", name="name", ng-model="currentBot.name", ng-disabled="isLocked")
@@ -21,6 +21,6 @@ form.BotInfo(name="BotInfo" method="POST", ng-submit="editBot()")
       input.form-control(type="text", name="config[{{ key }}]", ng-model="currentBot.config[key]", ng-disabled="isLocked")
 
 div.button-group
-  button.btn.btn-default(type="button", ng-click="toggleEditing(currentBot)", ng-show="isLocked") Edit
-  button.btn.btn-default(type="button", ng-click="toggleEditing(currentBot)", ng-show="!isLocked") Save
+  button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="isLocked") Edit
+  button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="!isLocked") Save
   button.btn.btn-default(type="button", ng-click="deleteBot(currentBot)") Delete
