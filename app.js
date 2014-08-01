@@ -26,6 +26,9 @@ require('./config/db')(mongoose, config);
 
 // Bootstrap models and inject dependencies
 var hubotUtils = require('./lib/hubot');
+var fakeHubotUtils = require('./test/utils').hubotUtilsMock;
+// env NOHUBOT=true to avoid interacting with Hubot
+if (process.env.NOHUBOT === 'true') hubotUtils = fakeHubotUtils
 var UserSchema = require('./models/user')();
 var BotSchema = require('./models/bot')(hubotUtils);
 mongoose.model('User', UserSchema);
