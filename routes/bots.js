@@ -65,6 +65,8 @@ function create (req, res) {
     owner: userid
   });
 
+  debug('newbot: ' + bot);
+
   bot.createAndDeploy(function (err, newbot) {
     if (!err && newbot) debug('created bot with name %s', newbot.name);
 
@@ -113,8 +115,17 @@ function update (req, res) {
     var bot = extend(result, req.body);
 
     bot.save(function (err) {
-      if (!err) return res.redirect('/'+ userid + '/bots');
-      res.render('bots/edit', { bot: result, error: err.message });
+
+      res.format({
+        json: function () {
+          if (!err) return res.send(200);
+          res.send(400, { error: err.message });
+        },
+        html: function () {
+          if (!err) return res.redirect('/'+ userid + '/bots');
+          res.render('bots/edit', { error: err.message });
+        }
+      });
     });
 
   });

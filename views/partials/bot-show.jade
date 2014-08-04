@@ -1,18 +1,20 @@
-form.BotInfo(name="BotInfo")
+a(ng-if="bots.length === 0", ui-sref="newbot") Create your first bot
+
+form.BotInfo(name="BotInfo", ng-if="bots.length > 0")
   div.form-group
-    label.control-label(for="name") Name:
+    label.control-label(for="name") Name
     input.form-control(type="text", name="name", ng-model="currentBot.name", ng-disabled="isLocked")
 
   div.form-group
-    label.control-label(for="adapter") Adapter:
+    label.control-label(for="adapter") Adapter
     input.form-control(type="text", name="adapter", ng-model="currentBot.adapter", disabled)
 
   div.form-group
-    label.control-label(for="port") Port:
-    input.form-control(type="text", name="port", ng-model="currentBot.port", disabled)
+    label.control-label(for="port") Port
+    input.form-control(type="text", name="port", ng-model="currentBot.config.PORT", disabled)
 
   div.form-group
-    label.control-label(for="createdAt") Birth date:
+    label.control-label(for="createdAt") Birth date
     input.form-control(type="date", name="createdAt", ng-model="currentBot.createdAt", disabled)
 
   fieldset
@@ -20,7 +22,7 @@ form.BotInfo(name="BotInfo")
       label.control-label(for="config[{{ key }}]") {{ key }}
       input.form-control(type="text", name="config[{{ key }}]", ng-model="currentBot.config[key]", ng-disabled="isLocked")
 
-div.button-group
-  button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="isLocked") Edit
-  button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="!isLocked") Save
-  button.btn.btn-default(type="button", ng-click="deleteBot(currentBot)") Delete
+  div.button-group
+    button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="isLocked") Edit
+    button.btn.btn-default(type="submit", ng-click="toggleEditing(currentBot)", ng-show="!isLocked") Save
+    button.btn.btn-default(type="button", ng-click="deleteBot(currentBot)") Delete

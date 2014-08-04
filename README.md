@@ -8,7 +8,8 @@
 1. git clone
 2. cd huboter
 3. npm install
-4. make server
+4. npm run db
+4. make dev-server
 
 # Use vagrant dev-environment (Ubuntu + mongodb + nodejs)
 

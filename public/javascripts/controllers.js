@@ -52,7 +52,7 @@ hubotAppControllers.controller('AuthCtrl',
  *
  */
 hubotAppControllers.controller('BotsListCtrl',
-  function ($rootScope, $scope, $http, Bots, Session) {
+  function ($rootScope, $scope, $http, $state, Bots, Session) {
     Bots.query({ userId: Session.userId }, function (bots) {
       $rootScope.bots = bots;
       Session.setCurrentBot(bots[0]); // fix: only do this when controller first instantiated
@@ -77,6 +77,8 @@ hubotAppControllers.controller('BotsListCtrl',
         userId: Session.userId,
         botId: Session.currentBot._id
       }, function (result) {
+        _.remove($rootScope.bots, currentBot);
+        if ($rootScope.bots.length > 0) Session.setCurrentBot($rootScope.bots[0]);
         console.log('Deletion result: ' + result);
       });
     };
@@ -90,10 +92,13 @@ hubotAppControllers.controller('BotsListCtrl',
  */
 hubotAppControllers.controller('BotsCreateCtrl',
   function ($rootScope, $scope, $http, Bots, Session) {
+    $scope.newbot = new Bots();
 
-    $scope.createBot = function () {
-      var data = JSON.stringify($scope.newbot);
-      console.log('Bot info: ' + data);
+    $scope.createBot = function (newbot) {
+      Bots.save({ userId: Session.userId }, newbot, function (result) {
+        $rootScope.bots.push(newbot);
+      });
+      $scope.newbot = new Bots();
     };
   }
 );
